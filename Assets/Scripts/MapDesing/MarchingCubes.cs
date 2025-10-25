@@ -27,12 +27,6 @@ public class MarchingCubes : MonoBehaviour
         meshFilter = GetComponent<MeshFilter>();
         StartCoroutine(TestAll());
     }
-
-    void Update()
-    {
-
-    }
-
     private IEnumerator TestAll()
     {
         while (true)

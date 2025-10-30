@@ -7,10 +7,10 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _controller;
     private Vector2 _movementInput;
 
-    public float speed = 5;
+    public float speed = 10;
     private Vector3 _playerVelocity;
-    public float jumpHeight = 1.5f;
-    public float gravity = -9.8f;
+    public float jumpHeight = 5;
+    public float gravity = -40f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,12 +29,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Jump");
             _playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
-        
-    }
-
-    void FixedUpdate()
-    {
         MovePlayer();
+        
     }
 
     void MovePlayer()

@@ -11,8 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _playerVelocity;
     public float jumpHeight = 5;
     public float gravity = -40f;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         _controller = GetComponent<CharacterController>();
@@ -36,7 +35,23 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer()
     {
         _playerVelocity.y += gravity * Time.deltaTime;
-        Vector3 movement = new Vector3(_movementInput.x, 0, _movementInput.y);
+        Transform camTransform = Camera.main.transform;
+        
+        Vector3 camForward = camTransform.forward;
+        Vector3 camRight = camTransform.right;
+        camForward.y = 0;
+        camRight.y = 0;
+        camForward.Normalize();
+        camRight.Normalize();
+        
+        Vector3 movement = camForward * _movementInput.y + camRight * _movementInput.x;
+        
+        if (movement.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+        
         Vector3 finalMove = (movement * speed) + (_playerVelocity.y * Vector3.up);
         _controller.Move(finalMove * Time.deltaTime);
     }

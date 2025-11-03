@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3265440217424416401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7289690753682919991}
+  - component: {fileID: 1380869952839266005}
+  m_Layer: 0
+  m_Name: ChasingObsSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7289690753682919991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3265440217424416401}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.71, y: 0, z: 14.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1380869952839266005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3265440217424416401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8543420161b77bb4ab0c4e7d0a00f85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefab: {fileID: 603672604411354000, guid: f3ac8eea4a6df2044aa7237519cfb1f0, type: 3}
+  obstacleTypes:
+  - {fileID: 11400000, guid: cd526f6bae7d001479665a37d982ad90, type: 2}
+  - {fileID: 11400000, guid: fe611e6a297f81a4d9eac7bb2460ef32, type: 2}
+  - {fileID: 11400000, guid: 745145bd5dd7d9e408d844640ed3bc12, type: 2}
+  - {fileID: 11400000, guid: 6ffdb18b3b5ac0b4badbc9851abdb1ca, type: 2}
+  - {fileID: 11400000, guid: 3ca6256682949dc4fa765754bf4122ac, type: 2}
+  player: {fileID: 0}
+  spawnInterval: 3
+  spawnRadius: 10

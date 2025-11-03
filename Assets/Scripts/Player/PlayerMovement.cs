@@ -7,10 +7,10 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _controller;
     private Vector2 _movementInput;
 
-    public float speed = 5;
+    public float speed = 10;
     private Vector3 _playerVelocity;
-    public float jumpHeight = 1.5f;
-    public float gravity = -9.8f;
+    public float jumpHeight = 5;
+    public float gravity = -40f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,33 +20,25 @@ public class PlayerMovement : MonoBehaviour
         _actions.Player.Enable();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        MovePlayer();
-        
-        if(_controller.isGrounded)
-            Debug.Log("Character is grounded");
-        else
-            Debug.Log("Character NOT grounded");
-            
-    }
 
-    void MovePlayer()
+    private void Update()
     {
-
-        if (_controller.isGrounded && _actions.Player.Jump.WasPerformedThisFrame())
+        _movementInput = _actions.Player.Move.ReadValue<Vector2>();
+        if (_controller.isGrounded && _actions.Player.Jump.WasPressedThisFrame())
         {
             Debug.Log("Jump");
             _playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
+        MovePlayer();
         
+    }
+
+    void MovePlayer()
+    {
         _playerVelocity.y += gravity * Time.deltaTime;
-        
-        _movementInput = _actions.Player.Move.ReadValue<Vector2>();
         Vector3 movement = new Vector3(_movementInput.x, 0, _movementInput.y);
         Vector3 finalMove = (movement * speed) + (_playerVelocity.y * Vector3.up);
-        _controller.Move(finalMove * Time.deltaTime * speed);
+        _controller.Move(finalMove * Time.deltaTime);
     }
     
 }

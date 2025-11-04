@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 5;
     public float gravity = -40f;
 
+    private Vector3 _externalVelocity = Vector3.zero;
+    public float externalDrag = 10f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,9 +39,23 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer()
     {
         _playerVelocity.y += gravity * Time.deltaTime;
+
         Vector3 movement = new Vector3(_movementInput.x, 0, _movementInput.y);
-        Vector3 finalMove = (movement * speed) + (_playerVelocity.y * Vector3.up);
+        Vector3 moveDir = (movement * speed);
+
+        if (_externalVelocity.magnitude > 0.1f)
+            _externalVelocity = Vector3.Lerp(_externalVelocity, Vector3.zero, externalDrag * Time.deltaTime);
+        else
+            _externalVelocity = Vector3.zero;
+
+        Vector3 finalMove = moveDir + (_playerVelocity.y * Vector3.up) + _externalVelocity;
+
         _controller.Move(finalMove * Time.deltaTime);
     }
-    
+
+    public void ApplyExternalForce(Vector3 force)
+    {
+        _externalVelocity = force;
+    }
+
 }

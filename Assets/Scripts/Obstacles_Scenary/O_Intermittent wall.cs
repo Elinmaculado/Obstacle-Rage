@@ -3,32 +3,53 @@ using UnityEngine;
 
 public class O_Intermittentwall : MonoBehaviour
 {
-    public GameObject objectWall;
-    public float timeActive;
-    private bool switchOn;
+    public float visibleTime = 3f;
+    public float invisibleTime = 2f;
+    public float blinkTIme = 3f;
+    public Renderer rend;
+
+    private Collider col;
+    private bool isVisible = true;
+    private Animator anim;
 
     private void Start()
     {
-        switchOn = true;
-        objectWall.SetActive(false);
+        col = GetComponent<Collider>();
+        anim = GetComponent<Animator>();
+
+        StartCoroutine(SwitchRoutine());
     }
 
-    private void Update()
+    private IEnumerator SwitchRoutine()
     {
-        if (switchOn)
+        while (true)
         {
-            StartCoroutine(StartTime());
+            SetWallState(true);
+            yield return new WaitForSeconds(visibleTime);
+
+            TriggerBlink();
+            yield return new WaitForSeconds(blinkTIme);
+
+            SetWallState(false);
+            yield return new WaitForSeconds(invisibleTime);
+
+            TriggerBlink();
+            yield return new WaitForSeconds(blinkTIme);
         }
     }
 
-    public IEnumerator StartTime()
+    private void SetWallState(bool state)
     {
-        switchOn = false;
-        objectWall.SetActive(false);
-        Debug.Log("Activado papu");
-        yield return new WaitForSeconds (timeActive);
-        objectWall.SetActive(true);
-        switchOn = true;
-        Debug.Log("Desactivado papu");
+        isVisible = state;
+        rend.enabled = state; 
+        col.enabled = state;
     }
+
+    private void TriggerBlink()
+    {
+        if (anim != null)
+        {
+            anim.SetTrigger("Blink");
+        }
+    }    
 }

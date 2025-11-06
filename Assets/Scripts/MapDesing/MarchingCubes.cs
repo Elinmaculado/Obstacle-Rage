@@ -26,6 +26,10 @@ public class MarchingCubes : MonoBehaviour
     {
         meshFilter = GetComponent<MeshFilter>();
         StartCoroutine(TestAll());
+        // Agrega el MeshCollider
+        MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>(); 
+        meshCollider.sharedMesh = meshFilter.mesh;
+
     }
     private IEnumerator TestAll()
     {

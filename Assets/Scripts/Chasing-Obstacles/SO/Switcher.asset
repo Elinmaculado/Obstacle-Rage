@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Switcher
   m_EditorClassIdentifier: 
   obstacleName: SwitcherObs
-  moveSpeed: 3
+  moveSpeed: 4
   lifeTime: 20
   obstacleColor: {r: 1, g: 1, b: 1, a: 1}
   possibleBehaviors:

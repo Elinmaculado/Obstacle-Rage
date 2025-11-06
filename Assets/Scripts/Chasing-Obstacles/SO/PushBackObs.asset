@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PushBackObs
   m_EditorClassIdentifier: 
   obstacleName: PushBackObs
-  moveSpeed: 3
+  moveSpeed: 4
   lifeTime: 10
   obstacleColor: {r: 0, g: 1, b: 0.015245676, a: 1}
   pushForce: 10

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class MarchingCubes : MonoBehaviour
@@ -21,6 +23,8 @@ public class MarchingCubes : MonoBehaviour
     private float[,,] heights;
 
     private MeshFilter meshFilter;
+    
+    public NavMeshSurface surface;
 
     void Start()
     {
@@ -29,7 +33,7 @@ public class MarchingCubes : MonoBehaviour
         // Agrega el MeshCollider
         MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>(); 
         meshCollider.sharedMesh = meshFilter.mesh;
-
+        surface.BuildNavMesh();
     }
     private IEnumerator TestAll()
     {
@@ -41,7 +45,6 @@ public class MarchingCubes : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
     }
-
     private void SetMesh()
     {
         Mesh mesh = new Mesh();
@@ -52,7 +55,6 @@ public class MarchingCubes : MonoBehaviour
 
         meshFilter.mesh = mesh;
     }
-
     private void SetHeights()
     {
         heights = new float[width + 1, height + 1, width + 1];
@@ -89,7 +91,6 @@ public class MarchingCubes : MonoBehaviour
             }
         }
     }
-
     private float PerlinNoise3D (float x, float y, float z)
     {
         float xy = Mathf.PerlinNoise(x, y);
@@ -102,7 +103,6 @@ public class MarchingCubes : MonoBehaviour
 
         return (xy + xz + yz + yx + zx + zy) / 6;
     }
-
     private int GetConfigIndex (float[] cubeCorners)
     {
         int configIndex = 0;
@@ -114,10 +114,8 @@ public class MarchingCubes : MonoBehaviour
                 configIndex |= 1 << i;
             }
         }
-
         return configIndex;
     }
-
     private void MarchCubes()
     {
         vertices.Clear();
@@ -142,7 +140,6 @@ public class MarchingCubes : MonoBehaviour
             }
         }
     }
-
     private void MarchCube (Vector3 position, float[] cubeCorners)
     {
         int configIndex = GetConfigIndex(cubeCorners);
@@ -176,7 +173,6 @@ public class MarchingCubes : MonoBehaviour
             }
         }
     }
-
     private void OnDrawGizmosSelected()
     {
         if (!visualizeNoise || !Application.isPlaying)

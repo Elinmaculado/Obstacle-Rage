@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleName: SlowPlayerObs
   moveSpeed: 1
-  lifeTime: 5
+  lifeTime: 10
   obstacleColor: {r: 0, g: 0.66313934, b: 1, a: 1}
   slowRange: 3
   slowMultiplier: 0.5

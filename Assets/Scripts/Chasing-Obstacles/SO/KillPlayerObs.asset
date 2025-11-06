@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleName: KillPlayerObs
   moveSpeed: 1
-  lifeTime: 5
+  lifeTime: 10
   obstacleColor: {r: 1, g: 0, b: 0, a: 1}
